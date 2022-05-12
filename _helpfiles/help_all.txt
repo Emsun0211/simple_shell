@@ -1,0 +1,6 @@
+GNU bash, version 4.3.11(1)-release (x86_64-pc-linux-gnu)
+These shell commands are defined internally.  Type `help' to see this list.
+
+cd [dir]
+exit [n]
+help [pattern ...]
