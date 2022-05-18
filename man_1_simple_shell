@@ -1,119 +1,98 @@
-.\" Manpage for Simple_Shell
-.TH man 1 "7 May 2022" "1.0" "Manual page for Simple_Shell"
+B.\"Manpage for simple shell 
+.\"Created by Ogwalu chidozie and Mubaraq Abuhasan
+
+.TH SODASH 1 "May 5 2022" "SODA SHELL - Simple Shell man page"
 
 .SH NAME
-.B \fBSimple_Shell\fR - Command language interpreter
+sodash\fR \- simple UNIX command interpreter
 
 .SH SYNOPSIS
-\fB./hsh\fR
+soda\fR [\fIfilename\fR]
+
+.SH COPYRIGHT
+soda is Copyright (C) 2022 by Ogwalu chidozie and Mubaraq Abuhasan
 
 .SH DESCRIPTION
-Command language interpreter that executes commands read from the standard input or from a file.
+Soda\fR is a sh-compatible command language interpreter that executes commands read from the standard input or from a file.
+
+.SH ARGUMENTS
+If arguments remain after option processing, the first argument is assumed to be the name of a file containing shell commands. Sodash reads and executes commands from this file, then exits. Sodash exit status is the exit status of the last command executed in the script. If no commands are executed, the exit status is 0. An attempt is first made to open the file in the current directory, and, if no file is found, then the shell searches the directories in PATH for the script.
 
 .SH INVOCATION
-An interactive shell is one started without non-option arguments, just running \fB./hsh\fR. Otherwise, when is started non-interactively, to run a shell script, for example, the shell reads and execute the next command \fBecho "pwd" | ./hsh\fR.
+Sodash is started with the standard input connected to the terminal (as determined by \fIisatty(3)\fR), the interactive mode is executed. Also non-interactively option can be executed.
+When Sodash is executed interactively, the prompt is displayed  \fI^-^ \fR to read any command, the command line argument is invoked and is treated as the first argument.
 
-.SH COMMAND EXECUTION
-The first thing Simple_Shell does is to read the argument input form the user, after that the line read is split into tokens. After that, the Simple_Shell looks in each token for the executable in paths specified by the PATH environment variable, then forks new process and executes it's code. Finally, prints the output and exits the prompt, sends the wait signal and the parent process terminates.
+.SH DEFINITIONS
+The following definitions are used throughout the rest of this document.
 
-.SH BUILT-IN COMMANDS
-Each builtin command is executed directly in the shell
-.TP
-.B \fBenv\fR - Display all the enviroment variables.
-.TP
-.B \fBcd [dir]\fR - Change the current directory to dir. The variable HOME is the default dir.
-.TP
-.B \fBexit [status]\fR - Terminate the shell process with Ctrl+D (EOF) or with exit. Cause the shell to exit with a status of n.
-.TP
-.B \fBhelp [pattern]\fR - Display helpful information about builtin commands. If pattern is specified, help gives detailed help on all commands matching pattern.
-.TP
-.B \fBpwd\fR - Print the absolute pathname of the current working directory.
-.TP
-.B \fBunsetenv [variable]\fR - Remove an environment variable.
+- \fIblank\fR
 
-.SH ENVIRONMENT
-Some environment variables
-.TP
-.B \fBHOME\fR - The home directory of the current user; the default argument for the cd builtin command.
-.TP
-.B \fBPATH\fR - The search path for commands. It is a colon-separated list of directories in which the shell looks for commands.
-.TP
-.B \fBPWD\fR - The absolute pathname for the current directory.
-.TP
-.B \fBOLDPWD\fR - The previous working directory as set by the cd command.
+A space or tab.
 
-.SH DELIMIT AND COMMENT COMMANDS
-Delimit commands are characters which will be used to split the string; Comment commands allow comments to be handled.
-.TP
-.B \fB;\fR - The semicolon ( ; ) is used as a command separator that allows to run a command on a single line placing the semicolon between each command.
-.TP
-.B \fB#\fR - The command number ( # ) allows a word beginning with #  and all remaining characters on that line to be ignored.
+- \fIword\fR
 
-.SH FILES
-.TP
-\fI_atoi.c\fR - function that gets sign and numbers of string
-.TP
-\fI_calloc.c\fR - function that allocates memory for an array
-.TP
-\fI_change.c\fR - functions that change the OLDPWD and PWD environment variables
-.TP
-\fI_comments.c\fR - function to handle the comments with the # command.
-.TP
-\fI_display_help.c\fR - functions that reads all builtins text files and prints it to POSIX stdout
-.TP
-\fI_envir.c\fR - functions to print the environment variables and create a copy of env
-.TP
-\fI_errors.c\fR - functions with the error message for each builtin
-.TP
-\fI_forky.c\fR - program that creates process and execute
-.TP
-\fI_gethome.c\fR - funtion to get the environment variable HOME
-.TP
-\fI_getline.c\fR - functions to read what the user writes
-.TP
-\fI_iscd.c\fR - functions to change the current directory of the process.
-.TP
-\fI_isexit.c\fR - functions that finds if line input is exit therefore process termination
-.TP
-\fI_ishelp.c\fR - functions to print the help of each builtin
-.TP
-\fI_noargv.c\fR - function to give shell form without filename as input
-.TP
-\fI_realloc.c\fR - function to change the size and copy the content
-.TP
-\fI_realloc2.c\fR - function to change the size and copy the content special case
-.TP
-\fI_signal.c\fR - function to handle SIGINT signal
-.TP
-\fI_str_concat.c\fR - function to create an array using malloc
-.TP
-\fI_strlen.c\fR - function that returns the length of a string
-.TP
-\fI_strtoky.c\fR - functions to cut a string into tokens depending of the delimit
-.TP
-\fI_unsetenv\fR - functions to remove an environment variable.
-.TP
-\fI_writerr.c\fR - functions to print the error for each builtin
-.TP
-\fI_yesargv.c\fR - function to give shell form with filename as input
-.TP
-\fIcheckbin.c\fR - functions to check if commands exist in the path
-.TP
-\fIfree_grid.c\fR - function to free a matrix
-.TP
-\fIman_1_simple_shell\fR - manual of simple_shell
-.TP
-\fIparsing.c\fR - functions that create an array of pointers depending of the delimit characters
-.TP
-\fIshell.h\fR - header file with all thr function prototypes
-.TP
-\fIstartshell.c\fR - main function that stars the shell (shell skeleton)
+A sequence of characters considered as a single unit by the shell. Also known as a token\fR.
+
+- \fIname\fR
+
+A word consisting only of alphanumeric characters and underscores, and beginning with an alphabetic character or an underscore. Also referred to as an identifier\fR.
+
+control operator\fR
+A token that performs a control function. It is one of the following symbols:
+|| & && ; ;;
+
+.SH Command Execution
+After a command has been split into words, if it results in a simple command and an optional list of arguments, the following actions are taken.
+
+If the command name contains no slashes, the shell attempts to locate it. If there exists a shell function by that name, that function is invoked. If the name does not match a function, the shell searches for it in the list of shell builtins. If a match is found, that builtin is invoked.
+
+If the name is neither a shell function nor a builtin, and contains no slashes, \fISodash\fR searches each element of the \fIPATH\fR for a directory containing an executable file by that name. \fISodash\fR uses a hash table to remember the full pathnames of executable files. A full search of the directories in \fIPATH\fR is performed only if the command is not found in the hash table. If the search is unsuccessful, the shell searches for a defined shell function named "command not found". If that function exists, it is invoked with the original command and the original command's arguments as its arguments, and the function's exit status becomes the exit status of the shell. If that function is not defined, the shell prints an error message and returns an exit status of 127.
+
+If the search is successful, or if the command name contains one or more slashes, the shell executes the named program in a separate execution environment. Argument 0 is set to the name given, and the remaining arguments to the command are set to the arguments given, if any.
+
+.SH Environment
+\fBSodash\fR takes a copy from \fBBash\fR environment of the parent process where it was executed. The environment is an array of strings containing the variables in the format.
+When a program is invoked it is given an array of strings called the environment. This is a list of name-value pairs, of the form name=value.
+
+The shell provides several ways to manipulate the environment. On invocation, the shell scans its own environment and creates a parameter for each name found, automatically marking it for export to child processes. Executed commands inherit the environment. The export and declare -x commands allow parameters and functions to be added to and deleted from the environment.
+
+.SH Exit Status
+Sodash\fR exit status of an executed command is the value returned by the waitpid system call or equivalent function. A command which exits with a zero exit status has succeeded. An exit status of zero indicates success. A non-zero exit status indicates failure.
+
+If a command is not found, the child process created to execute it returns a status of 127.
+
+All builtins return zero on success and one or two on incorrect usage (indicated by a corresponding error message).
+
+.SH BUILTINS
+The following builtin commands are supported:
+
+.B env
+
+- Print the current enviroment
+
+.B setenv [Variable] [Value]
+
+- Creates a new environment variab;e or modifies an existing one.
+
+.B unsetenv [Variable]
+
+- Removes an environmental variable.
+
+.B exit [Status]
+
+- Exit the shell
+
+.B cd [Directory]
+
+- Changes the current directory of the process to DIRECTORY.  If no argument is given, the command is interpreted as cd $HOME. If the argument - is given, the command is interpreted as cd $OLDPWD. The environment variables PWD and OLDPWD are updated after a change of directory.
+
+.B help
+
+- Print help message of builtin command
 
 .SH SEE ALSO
-chdir (2), close (2), execve (2), exit (3), fflush (3), fork (2), free (3), getcwd (3), getline (3), malloc (3), open (2), read (2), stat (2), signal (2), strtok (3), wait (2), waitpid (2), write (2).
+access(2), chdir(2), execve(2), _exit(2), exit(3), fflush(3), fork(2), free(3), isatty(3), getcwd(3), malloc(3), open(2), read(2), sh(1), signal(2), stat(2), wait(2), write(2)
+Sodash\fR takes basic functionality of the \fBsh\fR shell. This man page is based on the man page bash(1)
 
-.SH BUGS
-Not yet.
-
-.SH AUTHOR
-Written by Samuel Ifada and Israel Adenuga.
+.SH AUTHORS
+Ogwalu Chidozie and Mubaraq Abuhasan
